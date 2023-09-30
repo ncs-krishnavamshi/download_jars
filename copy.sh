@@ -13,6 +13,11 @@ sourceBucket="my-bucket1007"
 base_path="Software-Management/Installer/"
 sourcePath="In-progress/"
 destinationPath="release/"
-
-# Use the AWS CLI to copy files
-aws s3 cp "s3://${sourceBucket}/${base_path}/${sourcePath}" "s3://${sourceBucket}/${base_path}/${destinationPath}" --recursive
+promoteChoice="$1"
+version="$2"
+if [ "$promoteChoice" = "SNYPR" && "$version" = "6.4_Oct2023_R1"]; then
+aws s3 cp "s3://${sourceBucket}/${base_path}/${sourcePath}/${2}/apache-maven-3.9.4-bin.tar.gz" "s3://${sourceBucket}/${base_path}/${destinationPath}/${2}/apache-maven-3.9.4-bin.tar.gz" --recursive
+    echo "Promoting version $version"
+    else
+    echo "Invalid choice"
+    fi
