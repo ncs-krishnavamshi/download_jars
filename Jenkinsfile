@@ -1,10 +1,9 @@
 pipeline {
     agent any 
-
     stages {
         stage('Checkout') {
             steps {
-              git credentialsId: 'github', url: 'git@github.com:omeshvalyal/download_jars.git'                  
+              git branch: 'main', credentialsId: 'github', url: 'git@github.com:omeshvalyal/download_jars.git'                  
             }
         }
         stage('Run command') {
