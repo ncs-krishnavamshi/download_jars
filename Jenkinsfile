@@ -19,7 +19,7 @@ pipeline {
             steps {
                 sh '''
                 chmod 775 /var/lib/jenkins/workspace/SNPR-RN/copy.sh
-                ./copy.sh
+                ./copy.sh ${promote} ${version}
                 '''
             }
         }
