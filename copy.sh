@@ -1,5 +1,5 @@
 #!/bin/bash
-
+aws configure
 # Define your AWS credentials
 awsAccessKeyId="AKIA54ICCSKT2FLDLT56"
 awsSecretAccessKey="6naH/HRUHg4yVXSL4+CihgNcctcmgfD0inbGGJ3J"
@@ -15,7 +15,7 @@ sourcePath="In-progress/"
 destinationPath="release/"
 promoteChoice="$1"
 version="$2"
-if [ "$promoteChoice" = "SNYPR" && "$version" = "6.4_Oct2023_R1"]; then
+if [ "$promoteChoice" = "SNYPR"]; then
 aws s3 cp "s3://${sourceBucket}/${base_path}/${sourcePath}/${2}/apache-maven-3.9.4-bin.tar.gz" "s3://${sourceBucket}/${base_path}/${destinationPath}/${2}/apache-maven-3.9.4-bin.tar.gz" --recursive
     echo "Promoting version $version"
     else
