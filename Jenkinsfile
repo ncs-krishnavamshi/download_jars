@@ -1,5 +1,5 @@
 pipeline {
-    agent any   
+    agent any
     parameters {
         choice(name: 'promote', choices: ['SNYPR', 'RIN', 'RIN-Upgrade'], description: 'Promote to:')
         string(name: 'version', defaultValue: '', description: 'Enter the required version')
@@ -7,25 +7,36 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'github', url: 'git@github.com:omeshvalyal/download_jars.git'                  
+                script {
+                    def checkoutBranch = params.promote == 'RIN' ? 'rin-branch' :
+                                        params.promote == 'RIN-Upgrade' ? 'rin-upgrade-branch' : 'main'
+                    checkout([$class: 'GitSCM',
+                              branches: [[name: checkoutBranch]],
+                              doGenerateSubmoduleConfigurations: false,
+                              extensions: [[$class: 'CleanCheckout'],
+                                           [$class: 'CloneOption', noTags: false, shallow: true, timeout: 2],
+                                           [$class: 'PruneStaleBranch']],
+                              submoduleCfg: [],
+                              userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:omeshvalyal/download_jars.git']]])
+                }
             }
         }
         stage('Run command') {
             steps {
-                sh 'echo "welcome to Jenkins"'                  
+                sh 'echo "Welcome to Jenkins"'
             }
         }
         stage('Promote the files') {
-    steps {
-        script {
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                sh '''
-                chmod 775 /var/lib/jenkins/workspace/SNPR-RN/copy2.sh
-                ./copy2.sh ${promote} ${version}
-                '''
+            steps {
+                script {
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        sh """
+                        chmod 775 /var/lib/jenkins/workspace/SNPR-RN/copy2.sh
+                        /var/lib/jenkins/workspace/SNPR-RN/copy2.sh ${params.promote} ${params.version}
+                        """
+                    }
+                }
             }
-          }
         }
-      }
     }
 }
