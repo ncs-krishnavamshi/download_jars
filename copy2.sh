@@ -11,7 +11,10 @@ echo "promoteChoice: $promoteChoice"
 echo "version: $version"
 
 if [ "$promoteChoice" = "SNYPR" ]; then
-    aws s3 cp "s3://${sourceBucket}/${base_path}/${sourcePath}/${version}/apache-maven-3.9.4-bin.tar.gz" "s3://${sourceBucket}/${base_path}/${destinationPath}/${version}/apache-maven-3.9.4-bin.tar.gz" --recursive
+    sourceFile="s3://${sourceBucket}/${base_path}/${sourcePath}/${version}/apache-maven-3.9.4-bin.tar.gz"
+    destinationFile="s3://${sourceBucket}/${base_path}/${destinationPath}/${version}/apache-maven-3.9.4-bin.tar.gz"
+
+    aws s3 cp "$sourceFile" "$destinationFile" --recursive
     exit_code=$?
     if [ $exit_code -eq 0 ]; then
         echo "Promoting $promoteChoice file of version $version"
