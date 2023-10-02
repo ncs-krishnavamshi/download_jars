@@ -23,7 +23,7 @@ pipeline {
                                            [$class: 'CloneOption', noTags: false, shallow: true, timeout: 2],
                                            [$class: 'PruneStaleBranch']],
                               submoduleCfg: [],
-                              userRemoteConfigs: [[credentialsId: 'github', url: 'git@github.com:ncs-krishnavamshi/download_jars.git']]])
+                              userRemoteConfigs: [[url: 'https://github.com/ncs-krishnavamshi/download_jars.git']]])
                 }
             }
         }
