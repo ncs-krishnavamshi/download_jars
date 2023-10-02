@@ -1,9 +1,9 @@
 #!/bin/bash
 
 sourceBucket="my-bucket1007"
-base_path="Software-Management/Installer/"
-sourcePath="In-progress/"
-destinationPath="release/"
+base_path="Software-Management/Installer"
+sourcePath="In-progress/6.4_Oct2023_R1"
+destinationPath="release"
 promoteChoice="$1"
 version="$2"
 
