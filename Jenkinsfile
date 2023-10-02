@@ -33,14 +33,16 @@ pipeline {
             }
         }
         stage('Promote the files') {
+   stage('Promote the files') {
     steps {
         script {
-            sh '''
+            sh """
             chmod 775 /var/lib/jenkins/workspace/krishnavamshi/copy2.sh
-            PROMOTE=${params.promote} VERSION=${params.version} /var/lib/jenkins/workspace/krishnavamshi/copy2.sh $PROMOTE $VERSION
-            '''
+            PROMOTE=${params.promote} VERSION=${params.version} /var/lib/jenkins/workspace/krishnavamshi/copy2.sh \$PROMOTE \$VERSION
+            """
         }
     }
+}
         }
     }
 }
