@@ -21,7 +21,7 @@ pipeline {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                 sh '''
                 chmod 775 /var/lib/jenkins/workspace/SNPR-RN/copy.sh
-                ./copy.sh ${promote} ${version}
+                ./copy2.sh ${promote} ${version}
                 '''
             }
           }
