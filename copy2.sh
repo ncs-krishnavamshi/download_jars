@@ -18,8 +18,11 @@ if [ "$promoteChoice" = "SNYPR" ]; then
     else
         echo "Failed to promote $promoteChoice file of version $version. Exit code: $exit_code"
     fi
-elif [ "$promoteChoice" = "RIN" ] || [ "$promoteChoice" = "RIN-Upgrade" ]; then
-    # Commented out for now
+elif [ "$promoteChoice" = "RIN" ]; then
+    # Uncomment and add the AWS S3 promotion logic for RIN files here
+    echo "Promoting $promoteChoice file of version $version"
+elif [ "$promoteChoice" = "RIN-Upgrade" ]; then
+    # Uncomment and add the AWS S3 promotion logic for RIN-Upgrade files here
     echo "Promoting $promoteChoice file of version $version"
 else
     echo "Invalid choice"
