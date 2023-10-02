@@ -14,6 +14,8 @@ sourcePath="In-progress/"
 destinationPath="release/"
 promoteChoice="$1"
 version="$2"
+echo "promoteChoice: $promoteChoice"
+echo "version: $version"
 if [ "$promoteChoice" = "SNYPR" ]; then
 aws s3 cp "s3://${sourceBucket}/${base_path}/${sourcePath}/${2}/apache-maven-3.9.4-bin.tar.gz" "s3://${sourceBucket}/${base_path}/${destinationPath}/${2}/apache-maven-3.9.4-bin.tar.gz" --recursive
     echo "Promoting version $version"

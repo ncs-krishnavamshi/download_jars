@@ -18,7 +18,7 @@ pipeline {
         stage('Promote the files') {
             steps {
                 sh '''
-                chmod 700 /var/lib/jenkins/workspace/SNPR-RN/copy.sh
+                chmod 775 /var/lib/jenkins/workspace/SNPR-RN/copy.sh
                 ./copy.sh
                 '''
             }
