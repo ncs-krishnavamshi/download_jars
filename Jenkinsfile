@@ -4,6 +4,10 @@ pipeline {
         choice(name: 'promote', choices: ['SNYPR', 'RIN', 'RIN-Upgrade'], description: 'Promote to:')
         string(name: 'version', defaultValue: '', description: 'Enter the required version')
     }
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('aws')
+        AWS_SECRET_ACCESS_KEY = credentials('aws')
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -29,12 +33,10 @@ pipeline {
         stage('Promote the files') {
             steps {
                 script {
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                        sh """
-                        chmod 775 /var/lib/jenkins/workspace/SNPR-RN/copy2.sh
-                        /var/lib/jenkins/workspace/SNPR-RN/copy2.sh ${params.promote} ${params.version}
-                        """
-                    }
+                    sh '''
+                    chmod 775 /var/lib/jenkins/workspace/krishnavamshi/copy2.sh
+                    /var/lib/jenkins/workspace/krishnavamshi/copy2.sh ${params.promote} ${params.version}
+                    '''
                 }
             }
         }
