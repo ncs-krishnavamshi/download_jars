@@ -8,7 +8,6 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('aws') // Change 'aws' to your actual credential ID
         AWS_SECRET_ACCESS_KEY = credentials('aws') // Change 'aws' to your actual credential ID
-        VERSION = "${params.version}" // Pass 'version' as an environment variable
     }
     stages {
         stage('Checkout') {
@@ -31,10 +30,11 @@ pipeline {
         stage('Promote the files') {
             steps {
                 script {
-                    sh """
-                    chmod 775 /var/lib/jenkins/workspace/krishnavamshi/copy2.sh
-                    VERSION=${params.version} /var/lib/jenkins/workspace/krishnavamshi/copy2.sh ${params.promote} ${params.version}
-                    """
+                   sh """
+chmod 775 /var/lib/jenkins/workspace/krishnavamshi/copy2.sh
+VERSION=${params.version} /var/lib/jenkins/workspace/krishnavamshi/copy2.sh ${params.version}
+"""
+
                 }
             }
         }
