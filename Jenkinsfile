@@ -1,8 +1,10 @@
 pipeline {
-    agent any
+    agent any   
     parameters {
+        choice(name: 'promote', choices: ['SNYPR', 'RIN', 'RIN-Upgrade'], description: 'Promote to:')
         string(name: 'version', defaultValue: '', description: 'Enter the required version')
     }
+
     environment {
         AWS_ACCESS_KEY_ID = credentials('aws')
         AWS_SECRET_ACCESS_KEY = credentials('aws')
